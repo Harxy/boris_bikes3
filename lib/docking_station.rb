@@ -17,21 +17,14 @@ class DockingStation
 
   def release_bike
     fail 'No bikes available' if empty?
-  #  if there is a bike which is working, pop it and then stop
-    bikes.each do |bike|
-      if bike.working?
-        return bikes.delete(bike) #do something
-      else
-        fail "No working bikes available"
-      end
-    end
 
-    # fail 'No working bikes available' if bikes.last.broken?
-    # bikes.pop
+    bikes.each { |bike| return bikes.delete(bike) if bike.working? }
+
+        fail "No working bikes available"
   end
 
   private
-  
+
   attr_reader :bikes
 
   def full?

@@ -9,23 +9,20 @@ describe DockingStation do
       end
 
     it 'raises an error when there are no working bikes available' do
-      bike = Bike.new
-      bike.report_broken
+      bike = double :bike, :broken? => true, :working? => false
       subject.dock bike
       expect { subject.release_bike }.to raise_error 'No working bikes available'
     end
 
     it 'does not raise an error when there are any working bikes available' do
-      bike = Bike.new
-      bike2 = Bike.new
-      bike2.report_broken
-      subject.dock bike
-      subject.dock bike2
+
+      subject.dock double :bikebroken, :broken? => true, :working? => false
+      subject.dock double :bikeworking, :broken? => false, :working? => true
       expect { subject.release_bike }.not_to raise_error
     end
 
-    it 'does not release more than one woring bike if many are available' do
-      subject.capacity.times {subject.dock Bike.new}
+    it 'does not release more than one working bike if many are available' do
+      subject.capacity.times {subject.dock double :bike, :working? => true}
       testArray = Array.new << subject.release_bike
       expect(testArray.length).to eq 1
     end
@@ -56,13 +53,14 @@ end
 
   it { is_expected.to respond_to(:dock).with(1).argument }
 
-  it 'release working bikes' do
-    subject.dock Bike.new
-    bike = subject.release_bike
-    expect(bike).to be_working
-
-  end
 end
+
+# it 'release working bikes' do
+#   subject.dock Bike.new
+#   bike = subject.release_bike
+#   expect(bike).to be_working
+# end
+# test became obsolete upon using doubles that are guaranteed to be working
 
 #station = DockingStation.new
 #bike = station.release_bike
