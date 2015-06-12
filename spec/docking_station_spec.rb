@@ -26,6 +26,22 @@ describe DockingStation do
       testArray = Array.new << subject.release_bike
       expect(testArray.length).to eq 1
     end
+  describe 'van interactions' do
+
+    it { is_expected.to respond_to(:release_bike).with(1).argument }
+
+    it 'should return a bike if passed "broken" parameter' do
+
+
+      subject.dock double :bike, :broken? => true, :working? => false, :is_a? => true
+      expect(subject.release_bike('broken').is_a?(Bike)).to eq true
+
+    end
+    it 'should return a broken bike if passed "broken" parameter' do
+      subject.dock double :bike, :broken? => true, :working? => false
+      expect(subject.release_bike('broken').working?).to eq false
+    end
+  end
 
     # it releases only working bike when there are working bikes in the array
     #

@@ -15,12 +15,17 @@ class DockingStation
     bikes << bike
   end
 
-  def release_bike
+  def release_bike broken = :working
+
     fail 'No bikes available' if empty?
 
-    bikes.each { |bike| return bikes.delete(bike) if bike.working? }
-
-        fail "No working bikes available"
+    if broken == 'broken'
+      bikes.each { |bike| return bikes.delete(bike) if bike.broken? }
+      fail "No broken bikes available"
+    else
+      bikes.each { |bike| return bikes.delete(bike) if bike.working? }
+      fail "No working bikes available"
+    end
   end
 
   private
