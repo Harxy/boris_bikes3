@@ -1,7 +1,10 @@
+require 'docking_station'
+
 class Van
 
-  def dock(bike)
-    
+  def load(dockingstation)
+    dockingstation.release_bike('broken')
+
   end
 
 end

@@ -26,12 +26,12 @@ describe DockingStation do
       testArray = Array.new << subject.release_bike
       expect(testArray.length).to eq 1
     end
+
   describe 'van interactions' do
 
     it { is_expected.to respond_to(:release_bike).with(1).argument }
 
     it 'should return a bike if passed "broken" parameter' do
-
 
       subject.dock double :bike, :broken? => true, :working? => false, :is_a? => true
       expect(subject.release_bike('broken').is_a?(Bike)).to eq true
@@ -59,7 +59,7 @@ end
     expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
   end
 
-  describe 'capacity=' do
+  describe 'capacity setter method' do
     it 'should change the capacity when capacity is specified' do
       expect(subject.capacity=(30)).to eq subject.capacity
     end
