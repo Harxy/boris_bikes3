@@ -24,6 +24,12 @@ describe DockingStation do
       expect { subject.release_bike }.not_to raise_error
     end
 
+    it 'does not release more than one woring bike if many are available' do
+      subject.capacity.times {subject.dock Bike.new}
+      testArray = Array.new << subject.release_bike
+      expect(testArray.length).to eq 1
+    end
+
     # it releases only working bike when there are working bikes in the array
     #
     # ... and it deletes that working bike from the array
