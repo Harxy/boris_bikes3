@@ -69,20 +69,5 @@ end
 
   it { is_expected.to respond_to(:dock).with(1).argument }
 
+  it_behaves_like BikeContainer
 end
-
-# it 'release working bikes' do
-#   subject.dock Bike.new
-#   bike = subject.release_bike
-#   expect(bike).to be_working
-# end
-# test became obsolete upon using doubles that are guaranteed to be working
-
-#station = DockingStation.new
-#bike = station.release_bike
-#bike.working?
-
-#station = DockingStation.new
-#station.dock Bike.new
-#bike = station.release_bike
-#bike.working?
